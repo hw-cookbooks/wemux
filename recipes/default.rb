@@ -38,3 +38,15 @@ file '/usr/local/etc/wemux.conf' do
   }
   mode 0644
 end
+
+file '/etc/tmux.conf' do
+  content lazy{
+    [
+      "set -g prefix C-#{node[:wemux][:tmux][:control_key]}",
+      "unbind C-b",
+      "bind C-#{node[:wemux][:tmux][:control_key]} send-prefix"
+    ].join("\n") << "\n"
+  }
+  mode 0644
+  only_if{ node[:wemux][:tmux][:write] }
+end

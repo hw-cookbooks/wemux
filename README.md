@@ -75,3 +75,4 @@ be added to the `host_list` array and will _not_ have their
 # Infos
 
 * Repo: https://github.com/chrisroberts/cookbook-wemux
+* wemux: https://github.com/zolrath/wemux

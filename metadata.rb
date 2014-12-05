@@ -3,4 +3,4 @@ description 'Install and configures wemux'
 maintainer 'Chris Roberts'
 maintainer_email 'code@chrisroberts.org'
 
-version '0.1.4'
+version '0.1.5'

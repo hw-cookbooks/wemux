@@ -46,7 +46,8 @@ file '/etc/tmux.conf' do
       "unbind C-b",
       "bind C-#{node[:wemux][:tmux][:control_key]} send-prefix",
       "set-window-option -g allow-rename off",
-      "set-window-option -g automatic-rename off"
+      "set-window-option -g automatic-rename off",
+      *node[:wemux][:tmux].fetch(:config, [])
     ].join("\n") << "\n"
   }
   mode 0644

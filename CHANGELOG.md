@@ -1,3 +1,6 @@
+## v0.1.6
+* Include support for configuring tmux.conf
+
 ## v0.1.4
 * Fix attribute setter method name
 * Add tmux configuration to disable window renames

@@ -47,6 +47,12 @@ it:
 node.set[:wemux][:tmux][:write] = false
 ```
 
+Add extra lines to the file via the config attribute:
+
+```ruby
+node.set[:wemux][:tmux][:config] = ['line1', 'line2']
+```
+
 ### Users
 
 The `wemux::users` recipe is a helper to manage users

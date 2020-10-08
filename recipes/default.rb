@@ -1,11 +1,11 @@
-node[:wemux][:packages].each do |pkg_name|
+node['wemux']['packages'].each do |pkg_name|
   package pkg_name
 end
 
 execute 'wemux update' do
   command 'git pull'
   cwd '/opt/wemux'
-  only_if{ File.exists?('/opt/wemux/wemux') }
+  only_if { ::File.exist?('/opt/wemux/wemux') }
 end
 
 execute 'wemux clone' do
@@ -27,29 +27,29 @@ directory '/usr/local/etc' do
 end
 
 file '/usr/local/etc/wemux.conf' do
-  content lazy{
-    node[:wemux][:config].map do |k,v|
-      if(v.is_a?(Array))
+  content lazy {
+    node['wemux']['config'].map do |k, v|
+      if v.is_a?(Array)
         "#{k}=(#{v.join(' ')})"
       else
         "#{k}=\"#{v}\""
       end
     end.join("\n")
   }
-  mode 0644
+  mode '644'
 end
 
 file '/etc/tmux.conf' do
-  content lazy{
+  content lazy {
     [
-      "set -g prefix C-#{node[:wemux][:tmux][:control_key]}",
-      "unbind C-b",
-      "bind C-#{node[:wemux][:tmux][:control_key]} send-prefix",
-      "set-window-option -g allow-rename off",
-      "set-window-option -g automatic-rename off",
-      *node[:wemux][:tmux].fetch(:config, [])
+      "set -g prefix C-#{node['wemux']['tmux']['control_key']}",
+      'unbind C-b',
+      "bind C-#{node['wemux']['tmux']['control_key']} send-prefix",
+      'set-window-option -g allow-rename off',
+      'set-window-option -g automatic-rename off',
+      *node['wemux']['tmux'].fetch(:config, []),
     ].join("\n") << "\n"
   }
-  mode 0644
-  only_if{ node[:wemux][:tmux][:write] }
+  mode '644'
+  only_if { node['wemux']['tmux']['write'] }
 end
